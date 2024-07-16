@@ -1,5 +1,6 @@
 defmodule KV.BucketTest do
   use ExUnit.Case, async: true
+  doctest KV.Bucket
 
   setup do
     {:ok, bucket} = KV.Bucket.start_link([])

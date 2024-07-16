@@ -42,7 +42,6 @@ defmodule KV.Registry do
 
   @impl true
   def handle_info({:DOWN, ref, :process, _pid, _reason}, {names, refs}) do
-    IO.inspect({:handle_info, {:DOWN, ref, :process, _pid, _reason}})
     {name, refs} = Map.pop(refs, ref)
     names = Map.delete(names, name)
     {:noreply, {names, refs}}
