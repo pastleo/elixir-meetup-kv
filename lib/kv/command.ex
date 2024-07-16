@@ -35,6 +35,7 @@ defmodule KV.Command do
       ["GET", bucket, key] -> {:ok, {:get, bucket, key}}
       ["PUT", bucket, key, value] -> {:ok, {:put, bucket, key, value}}
       ["DELETE", bucket, key] -> {:ok, {:delete, bucket, key}}
+      ["DROP", bucket] -> {:ok, {:drop, bucket}}
       _ -> {:error, :unknown_command}
     end
   end
@@ -68,6 +69,10 @@ defmodule KV.Command do
       KV.Bucket.delete(pid, key)
       {:ok, "OK\r\n"}
     end
+  end
+
+  def run({:drop, bucket}) do
+    KV.Registry.drop(KV.Registry, bucket)
   end
 
   defp lookup(bucket, callback) do
